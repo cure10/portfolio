@@ -1,0 +1,18 @@
+  <% if @post.errors.any? %>
+    <%= @post.errors.count %>error
+    <% @post.errors.full_messages.each do |message| %>
+    <p class="error-message"><%= message %></p>
+    <% end %>
+  <% end %>
+  <%= form_with model:@post, local:true do |book| %>
+  <h1>Editing Book</h1>
+  <h4>Title</h4>
+  <%= book.text_field :title %>
+  <h4>Opinion</h4>
+  <%= book.text_area :title_comment %>
+  <div>
+  <%= book.submit 'Update Book' %>
+  </div>
+  <div><%= link_to "Show",post_path(@post) %></div>
+  <div><%= link_to "Back",posts_path %></div>
+  <% end %>

@@ -1,0 +1,39 @@
+<%= render 'users/profile', user: @user %>
+
+
+  <div class="col-md-8 offset-md-1">
+    <% if @post.errors.any? %>
+      <%= @post.errors.count %>errors
+      <% @post.errors.full_messages.each do |message| %>
+      <%= message %>
+    <% end %>
+    <% end %>
+    <h1>Books</h1>
+    <table class="table table-hover table-inverse">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Title</th>
+          <th>Opinion</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @posts.each do |post| %>
+        <tr>
+          <td>
+          <%= link_to (attachment_image_tag post.user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg"),user_path(post.user) %>
+          </td>
+          <td><%= link_to post.title, post_path(post) %></td>
+          <td><%= post.title_comment %></td>
+
+          <td class="favorite-btn_<%= post.id %>">
+          <%= render 'favorites/favorite-btn', post: post %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  </div>
+</div>

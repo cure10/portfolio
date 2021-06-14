@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<div class="toppage">
+<h1 class="top">カレンダー</h1>
+<br>
+
+<div class="row">
+<div class="col-md-4">
+	<div class="schedule">今後の予定一覧</div>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th>タイトル</th>
+      <th>日程</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= link_to event.title , user_event_path(event.id, :id) %></td>
+        <td><%= event.start.strftime("%m-%d") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= form_with model: @event, url:'/users/:user_id/events', local:true do |form| %>
+
+  <div class="title">
+    <div class="form-tag">タイトル</div>
+    <%= form.text_field :title %>
+  </div>
+
+
+  <div class="content">
+    <div class="form-tag">内容</div>
+    <%= form.text_field :body %>
+  </div>
+
+    <div class="time">
+    <div class="form-tag">時間</div>
+    <%= form.datetime_select :start %>
+  </div>
+
+ <div class="submit">
+    <%= form.submit %>
+ </div>
+<% end %>
+</div>
+
+<br>
+
+
+<br>
+<div class="col-md-8">
+<%= month_calendar events: @events do |date, events| %>
+  <%= date.day %>
+
+  <% events.each do |event| %>
+    <div>
+      <%= link_to event.title, user_event_path %>
+    </div>
+  <% end %>
+<% end %>
+</div>
+</div>
+</div>
