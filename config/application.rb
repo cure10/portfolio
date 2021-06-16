@@ -9,6 +9,8 @@ Bundler.require(*Rails.groups)
 module Newfarmer
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    # 以下の行をバッチ処理のため追加　2021/06/16
+    config.paths.add 'lib', eager_load: true
     config.load_defaults 5.2
 
     # Settings in config/environments/* take precedence over those specified here.

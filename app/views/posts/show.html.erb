@@ -14,6 +14,21 @@
             <td>
             <%= @post.title_comment %>
             </td>
+
+            <%# rateを表示 %>
+            <td id="star-rate-<%= @post.id %>">評価：</td>
+            <script>
+              $('#star-rate-<%= @post.id %>').raty({
+                size: 36,
+                starOff:  '<%= asset_path('star-off.png') %>',
+                starOn : '<%= asset_path('star-on.png') %>',
+                starHalf: '<%= asset_path('star-half.png') %>',
+                half: true,
+                readOnly: true,
+                score: <%= @post.rate %>,
+              });
+            </script>
+
             <% if current_user.id == @post.user_id %>
               <td><%= link_to "Edit", {controller: 'posts', action: 'edit'}, {method: :get, class: "mybutton"} %></td>
               <td><%= link_to "Destroy", {controller: 'posts', action: 'destroy'}, {method: :delete,  "data-confirm" => "本当に削除しますか？",class: "mybutton"} %></td>

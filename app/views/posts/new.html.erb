@@ -4,8 +4,24 @@
   <%= f.text_field :title %>
   <h4>Image</h4>
   <%= f.attachment_field :title_image %>
+
+  <div id="rating-form">
+    <label>評価：</label>
+    <%# scoreNameの値をhidden_fieldでカラムに送っている %>
+    <%= f.hidden_field :rate, :value => 'score' %>
+  </div>
+
+
   <h4>Opinion</h4>
   <%= f.text_area :title_comment %>
   <%= f.submit 'Create Book', class: "btn btn-primary" %>
   <% end %>
   </div>
+
+  <script>
+    $('#rating-form').raty({
+        starOn: "<%= asset_path('star-on.png') %>",
+        starOff: "<%= asset_path('star-off.png') %>",
+        scoreName: 'post[rate]'
+    });
+  </script>

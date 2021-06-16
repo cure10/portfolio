@@ -15,7 +15,8 @@ Rails.application.routes.draw do
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
     resources :events
-    resources :notifications, only: [:index, :destroy]
+    resources :notifications, only: [:index]
+    delete 'destroy_all' => 'notifications#destroy_all'
   end
 
 
