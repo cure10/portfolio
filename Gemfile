@@ -71,3 +71,6 @@ gem 'font-awesome-sass', '~> 5.13'
 gem "dotenv-rails"
 gem 'simple_calendar', '~> 2.0'
 gem 'whenever', require: false
+group :production do
+  gem 'mysql2'
+end
