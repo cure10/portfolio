@@ -27,6 +27,7 @@
           <% if user_signed_in? %>
           <li class="fas fa-home nav-link text-light"><%= link_to "Home",current_user %></li>
           <li class="fas fa-users nav-link text-light"><%= link_to "Users",users_path %></li>
+          <li class="fas fas fa-comment-medical nav-link text-light"><%= link_to "新規投稿",new_post_path %></li>
           <li class="fas fa-book-open nav-link text-light"><%= link_to "Books",posts_path %></li>
           <li class="fas fa-sign-out-alt nav-link text-light"><%= link_to "logout", destroy_user_session_path, method: :delete %></li>
           <div class="search_form">
