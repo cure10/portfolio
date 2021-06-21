@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-
   def index
     @posts = Post.all
     @post = Post.new
@@ -33,13 +32,13 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @user = @post.user
     if  @user == current_user
-        render "edit"
+      render "edit"
     else
-        redirect_to posts_path
+      redirect_to posts_path
     end
   end
 
-  def  update
+  def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
       flash[:notice] = "successfully"
@@ -60,4 +59,3 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :title_comment, :title_image, :rate)
   end
 end
-

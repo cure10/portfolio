@@ -19,8 +19,6 @@ Rails.application.routes.draw do
     delete 'destroy_all' => 'notifications#destroy_all'
   end
 
-
-
   get "search" => "searches#search"
 
   resources :contacts, only: [:new, :create]

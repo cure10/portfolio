@@ -1,7 +1,9 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.all
+    start_date = params.fetch(:start_time, Date.today).to_date
+    @events = Event.where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
     @event = Event.new
+    @user = current_user
   end
 
   def new
@@ -9,18 +11,19 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:user_id])
+    @event = Event.find(params[:id])
   end
 
   def create
-    Event.create(event_parameter)
+    @event = Event.new
+    Event.create!(event_parameter)
     redirect_to user_events_path
   end
 
   def destroy
     @blog = Blog.find(params[:id])
     @blog.destroy
-    redirect_to blogs_path, notice:"削除しました"
+    redirect_to blogs_path, notice: "削除しました"
   end
 
   def edit
@@ -39,7 +42,7 @@ class EventsController < ApplicationController
   private
 
   def event_parameter
-    params.require(:event).permit(:title, :body, :start, :user_id)
+    params.require(:event).permit(:title, :body, :start_time, :user_id)
   end
 
 end

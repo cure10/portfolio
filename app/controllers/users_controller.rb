@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def index
     @users = User.all
     @user = current_user
@@ -47,6 +46,4 @@ class UsersController < ApplicationController
     redirect_to user_path(current_user)
     end
   end
-
 end
-

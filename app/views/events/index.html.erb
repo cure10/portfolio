@@ -19,33 +19,34 @@
     <% @events.each do |event| %>
       <tr>
         <td><%= link_to event.title , user_event_path(event.id, :id) %></td>
-        <td><%= event.start.strftime("%m-%d") %></td>
+        <td><%= event.start_time.strftime("%m-%d") %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 
-<%= form_with model: @event, url:'/users/:user_id/events', local:true do |form| %>
+<%= form_with model: @event, url: user_events_path, local:true do |f| %>
 
   <div class="title">
     <div class="form-tag">タイトル</div>
-    <%= form.text_field :title %>
+    <%= f.text_field :title %>
   </div>
-
 
   <div class="content">
     <div class="form-tag">内容</div>
-    <%= form.text_field :body %>
+    <%= f.text_field :body %>
   </div>
 
-    <div class="time">
+  <div class="time">
     <div class="form-tag">時間</div>
-    <%= form.datetime_select :start %>
+    <%= f.datetime_select :start_time %>
   </div>
+
+  <%= f.hidden_field :user_id, value: current_user.id %>
 
  <div class="submit">
-    <%= form.submit %>
+    <%= f.submit %>
  </div>
 <% end %>
 </div>
@@ -57,10 +58,9 @@
 <div class="col-md-8">
 <%= month_calendar events: @events do |date, events| %>
   <%= date.day %>
-
   <% events.each do |event| %>
     <div>
-      <%= link_to event.title, user_event_path %>
+      <%= link_to event.title, user_event_path(event.user.id,event.id) %>
     </div>
   <% end %>
 <% end %>

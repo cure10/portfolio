@@ -13,31 +13,30 @@
 
       <table class="table">
         <tbody>
-        <tr>
-          <td>name</td>
-          <td><%= user.name %></td>
-        </tr>
-        <tr>
-          <td>introduction</td>
-          <td><%= user.introduction %></td>
-        </tr>
-        <tr>
-          <td>follows</td>
-          <td><%= link_to user.followings.count,user_followings_path(user) %></td>
-        </tr>
-        <tr>
-          <td>followers</td>
-          <td><%= link_to user.followers.count,user_followers_path(user) %></td>
-        </tr>
-        <tr>
-          <td><%= link_to "編集する",edit_user_path(user) %></td>
-        </tr>
-      </tbody>
+          <tr>
+            <td>name</td>
+            <td><%= user.name %></td>
+          </tr>
+          <tr>
+            <td>introduction</td>
+            <td><%= user.introduction %></td>
+          </tr>
+          <tr>
+            <td>follows</td>
+            <td><%= link_to user.followings.count,user_followings_path(user) %></td>
+          </tr>
+          <tr>
+            <td>followers</td>
+            <td><%= link_to user.followers.count,user_followers_path(user) %></td>
+          </tr>
+          <tr>
+            <td><%= link_to "編集する",edit_user_path(user) %></td>
+          </tr>
+        </tbody>
       </table>
 
       <h1>その他</h1>
       <div>
-        <%= link_to '',user_events_path(user), class: "col-sm-12 btn btn-outline-secondary btn-block fas fa-calendar-check edit_user_#{user.id}" %>
+        <%= link_to '',user_events_path(user.id), class: "col-sm-12 btn btn-outline-secondary btn-block fas fa-calendar-check" %>
       </div>
-
     </div>
