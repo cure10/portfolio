@@ -1,27 +1,28 @@
-<h1 class="mt-3">New book</h1>
-  <%= form_with model: @post, url:'/posts', local:true do |f| %>
-  <h4>Title</h4>
-  <%= f.text_field :title %>
-  <h4>Image</h4>
-  <%= f.attachment_field :title_image %>
-
-  <div id="rating-form">
-    <label>評価：</label>
-    <%# scoreNameの値をhidden_fieldでカラムに送っている %>
-    <%= f.hidden_field :rate, :value => 'score' %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto text-center">
+    <h1 class="mt-3">新規投稿</h1>
+    <%= form_with model: @post, url:'/posts', local:true do |f| %>
+      <p><%= f.label :タイトル %> :</p>
+      <p><%= f.text_field :title %></p>
+      <p><%= f.label :本文 %> :</p>
+      <p class="textarea"><%= f.text_area :title_comment %></p>
+      <p><%= f.label :投稿の写真 %> :</p>
+      <p><%= f.attachment_field :title_image %></p>
+      <div id="rating-form">
+        <p><label>自己評価：</label></p>
+        <%# scoreNameの値をhidden_fieldでカラムに送っている %>
+        <p><%= f.hidden_field :rate, :value => 'score' %></p>
+      </div>
+      <%= f.submit '投稿作成', class: "btn btn-primary mt-5" %>
+    <% end %>
+    </div>
   </div>
-
-
-  <h4>Opinion</h4>
-  <%= f.text_area :title_comment %>
-  <%= f.submit 'Create Book', class: "btn btn-primary" %>
-  <% end %>
-  </div>
-
-  <script>
-    $('#rating-form').raty({
-        starOn: "<%= asset_path('star-on.png') %>",
-        starOff: "<%= asset_path('star-off.png') %>",
-        scoreName: 'post[rate]'
-    });
-  </script>
+</div>
+<script>
+  $('#rating-form').raty({
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      scoreName: 'post[rate]'
+  });
+</script>

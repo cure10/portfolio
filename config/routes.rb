@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'homes#top'
-  get 'home/about' => 'homes#about'
 
   devise_for :users
 
@@ -14,7 +13,7 @@ Rails.application.routes.draw do
     resources :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
-    resources :events
+    resources :events, only: [:new, :create, :index, :edit, :update, :destroy]
     resources :notifications, only: [:index]
     delete 'destroy_all' => 'notifications#destroy_all'
   end
@@ -23,7 +22,5 @@ Rails.application.routes.draw do
 
   resources :contacts, only: [:new, :create]
   post 'contacts/confirm', to: 'contacts#confirm', as: 'confirm'
-  post 'contacts/back', to: 'contacts#back', as: 'back'
-  get 'done', to: 'contacts#done', as: 'done'
-
+  get 'thanks', to: 'contacts#thanks', as: 'thanks'
 end

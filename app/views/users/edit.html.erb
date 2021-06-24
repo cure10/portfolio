@@ -1,18 +1,38 @@
-<% if @user.errors.any? %>
-  <%= @user.errors.count %>error
-  <% @user.errors.full_messages.each do |message| %>
-  <%= message %>
-  <% end %>
-<% end %>
-<h1>User info</h1>
-<%= form_with model:@user, local:true do |f| %>
-  <div class="user-name">Name</div>
-    <%= f.text_field :name %>
-  <div class="user-edit-image">Image</div>
-    <%= f.attachment_field :profile_image %>
-  <div class="form-body">Introduction</div>
-    <%= f.text_area :introduction %><br>
-  <div class="upload">
-    <%= f.submit " Update User" %>
+  <div class="container px-5 px-sm-0">
+    <h4>プロフィール編集</h4>
+    <div class="row d-flex align-items-center justify-content-center">
+      <div class="text-danger">
+        <% if @user.errors.any? %>
+          <%= @user.errors.count %>error
+          <% @user.errors.full_messages.each do |message| %>
+          <%= message %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="row">
+        <div class="mr-5 mt-5 col-md-5">
+          <span><%= attachment_image_tag @user, :profile_image, :fill, 250, 250, fallback: "no_image.jpg" %></span>
+        </div>
+        <div class="mt-5 col-md-5">
+          <%= form_with model:@user, url:"/users/#{@user.id}",local:true do |f| %>
+          <div class="row mt-2">
+            <p class="col-md-6">ニックネーム:</p>
+            <p class="col-md-6"><%= f.text_field :name %></p>
+          </div>
+          <div class="row mt-2">
+            <p class="col-md-7">プロフィール写真：</p>
+            <p class="col-md-5"><%= f.attachment_field :profile_image %></p>
+            <span>※既に登録済みでも選択されていませんと表示されます。</span>
+          </div>
+          <div class="row mt-2">
+            <p class="col-md-6">自己紹介：</p>
+            <p class="col-md-6"><%= f.text_area :introduction %></p>
+          </div>
+          <div class="row mt-2">
+            <p class="col-md-6"><%= f.submit "編集する" %></p>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-<% end %>

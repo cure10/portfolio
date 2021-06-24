@@ -1,69 +1,39 @@
-<p id="notice"><%= notice %></p>
-
-<div class="toppage">
-<h1 class="top">カレンダー</h1>
-<br>
-
-<div class="row">
-<div class="col-md-4">
-	<div class="schedule">今後の予定一覧</div>
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th>タイトル</th>
-      <th>日程</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= link_to event.title , user_event_path(event.id, :id) %></td>
-        <td><%= event.start_time.strftime("%m-%d") %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-
-<%= form_with model: @event, url: user_events_path, local:true do |f| %>
-
-  <div class="title">
-    <div class="form-tag">タイトル</div>
-    <%= f.text_field :title %>
+  <div class="row ml-5 mt-3">
+  <h1>栽培予定カレンダー</h1>
   </div>
-
-  <div class="content">
-    <div class="form-tag">内容</div>
-    <%= f.text_field :body %>
-  </div>
-
-  <div class="time">
-    <div class="form-tag">時間</div>
-    <%= f.datetime_select :start_time %>
-  </div>
-
-  <%= f.hidden_field :user_id, value: current_user.id %>
-
- <div class="submit">
-    <%= f.submit %>
- </div>
-<% end %>
-</div>
-
-<br>
-
-
-<br>
-<div class="col-md-8">
-<%= month_calendar events: @events do |date, events| %>
-  <%= date.day %>
-  <% events.each do |event| %>
-    <div>
-      <%= link_to event.title, user_event_path(event.user.id,event.id) %>
+  <br>
+  <div class="row">
+    <div class="col-md-4">
+      <%= form_with model: @event, url: user_events_path, local:true do |f| %>
+        <div class="title text-center">
+          <div class="form-tag">タイトル</div>
+          <%= f.text_field :title %>
+        </div>
+        <div class="content text-center">
+          <div class="form-tag">内容</div>
+          <%= f.text_area :body,class: "event-index-text-area" %>
+        </div>
+        <div class="time text-center">
+          <div class="form-tag">作業開始時間</div>
+          <%= f.datetime_select :start_time %>
+        </div>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <div class="submit text-center mt-2">
+          <%= f.submit "栽培予定作成" %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-<% end %>
-</div>
-</div>
-</div>
+    <br>
+    <br>
+    <div class="col-md-8">
+      <h2 class="bg-primary"><%= notice %></h2>
+      <%= month_calendar events: @events do |date, events| %>
+        <%= date.day %>
+        <% events.each do |event| %>
+          <div>
+            <%= link_to event.title.truncate(6), edit_user_event_path(event.user.id,event.id) %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>

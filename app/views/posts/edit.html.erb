@@ -1,18 +1,53 @@
-  <% if @post.errors.any? %>
-    <%= @post.errors.count %>error
-    <% @post.errors.full_messages.each do |message| %>
-    <p class="error-message"><%= message %></p>
-    <% end %>
-  <% end %>
-  <%= form_with model:@post, local:true do |book| %>
-  <h1>Editing Book</h1>
-  <h4>Title</h4>
-  <%= book.text_field :title %>
-  <h4>Opinion</h4>
-  <%= book.text_area :title_comment %>
-  <div>
-  <%= book.submit 'Update Book' %>
+  <div class="container px-5 px-sm-0">
+    <h4 class="mt-5">投稿編集画面</h4>
+    <div class="row d-flex align-items-center justify-content-center">
+      <div class="text-danger">
+        <% if @post.errors.any? %>
+          <%= @post.errors.count %>error
+          <% @post.errors.full_messages.each do |message| %>
+          <p class="error-message"><%= message %></p>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="row">
+        <div class="mr-5 mt-5 col-md-5 text-center">
+          <h4>投稿の写真</h4>
+          <p><%= attachment_image_tag @post, :title_image, :fill, 250, 250, fallback: "no_image.jpg" %></p>
+        </div>
+        <div class="mt-5 col-md-5">
+          <%= form_with model:@post, url:"/posts/#{@post.id}",local:true do |f| %>
+          <div class="row mt-2">
+            <p class="col-md-3">タイトル：</p>
+            <p class="col-md-3"><%= f.text_field :title %></p>
+          </div>
+          <div class="row mt-2">
+            <p class="col-md-3">本文：</p>
+            <p class="col-md-3"><%= f.text_area :title_comment,class: "edit-post-text-area" %></p>
+          </div>
+          <div class="row mt-2">
+            <p class="col-md-3">投稿写真：</p>
+            <p class="col-md-3"><%= f.attachment_field :title_image %></p>
+            <span>※既に登録済みでも選択されていませんと表示されます。</span>
+          </div>
+          <div class="row rating-form mt-2">
+            <p class="col-md-3">自己評価：</p>
+            <p class="ml-3"><%= f.hidden_field :rate, :value => 'score' %></p>
+          </div>
+          <script>
+            $('.rating-form').raty({
+              starOn: "<%= asset_path('star-on.png') %>",
+              starOff: "<%= asset_path('star-off.png') %>",
+              scoreName: 'post[rate]'
+            });
+          </script>
+          <div class="row mt-4 text-center">
+            <p class="col-md-6"><%= f.submit '編集する' %></p>
+          </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="row mt-4 text-center">
+      <div><%= link_to "詳細ページに戻る",post_path(@post) %></div>
+      </div>
+    </div>
   </div>
-  <div><%= link_to "Show",post_path(@post) %></div>
-  <div><%= link_to "Back",posts_path %></div>
-  <% end %>

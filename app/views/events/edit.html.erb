@@ -1,24 +1,23 @@
-<%= form_with model: @event, url:"/users/#{@event.user.id}/events/#{@event.id}", local:true do |form| %>
-
-  <div class="title">
-    <div class="form-tag">タイトル</div>
-    <%= form.text_field :title %>
+  <div class="container">
+    <h2>栽培予定編集</h2>
+      <%= form_with model: @event, url:"/users/#{@event.user.id}/events/#{@event.id}", local:true do |f| %>
+      <div class="row d-flex align-items-center justify-content-center mt-5">
+        <div class="col-md-4">
+          <p><strong　class="form-tag">タイトル：</strong></p>
+          <p><%= f.text_field :title %></p>
+          <p><strong  class="form-tag">作業開始時間：</strong></p>
+          <p><%= f.datetime_select :start_time %></p>
+          <p><%= link_to 'この栽培予定を消去する',user_event_path(@event.id), method: :delete, data: { confirm: '本当に消してしまってよろしいですか?' } %></p>
+          <p><%= link_to '前の画面に戻る',user_events_path %></p>
+        </div>
+        <div class="col-md-8">
+          <p><strong>内容：</strong></p>
+          <p><%= f.text_area :body,class: "text-area" %></p>
+        </div>
+        <p><%= f.submit "編集を実行する" %></p>
+      </div>
+      <% end %>
   </div>
 
 
-  <div class="content">
-    <div class="form-tag">内容</div>
-    <%= form.text_field :body %>
-  </div>
 
-    <div class="time">
-    <div class="form-tag">時間</div>
-    <%= form.datetime_select :start_time %>
-  </div>
-
-
-  <div class="submit">
-    <%= form.submit %>
-  </div>
-
-<% end %>
