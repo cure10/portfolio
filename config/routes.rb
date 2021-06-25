@@ -11,8 +11,6 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create, :index, :show, :edit, :update] do
     resources :relationships, only: [:create, :destroy]
-    get 'followings' => 'relationships#followings', as: 'followings'
-    get 'followers' => 'relationships#followers', as: 'followers'
     resources :events, only: [:new, :create, :index, :edit, :update, :destroy]
     resources :notifications, only: [:index]
     delete 'destroy_all' => 'notifications#destroy_all'

@@ -11,10 +11,10 @@
       </div>
       <h5 class="mt-3">コメント一覧</h5>
       <div class="comment-index">
-        <%= render 'post_comments/comment-index', post: @post  %>
+        <%= render 'post_comments/comment-index', post: @post_index  %>
       </div>
     </div>
-    <div class="col-md-2 text-right">
+    <div class="col-md-2 mt-4 text-right">
       <p><%= link_to (attachment_image_tag @post.user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg"),user_path(@user) %></p>
       <p>ユーザー名：<%= link_to @post.user.name,user_path(@user) %></p>
       <% if current_user.id == @post.user_id %>

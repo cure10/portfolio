@@ -1,39 +1,52 @@
-  <%= render 'users/profile', user: @user %>
-      <div class="col-md-8 offset-md-1">
-        <% if @range == "User" %>
-        <div>ユーザー　<%= @word %>の検索結果</div>
-          <table class="table">
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-12">
+        <% if @range == "ユーザー" %>
+        <h2>ユーザー　"<%= @word %>"の検索結果</h2>
+          <table class="table table-hover table-inverse">
             <thead>
               <tr>
-                <th>Image</th>
-                <th>Name</th>
+                <th>プロフィール画像</th>
+                <th>ニックネーム</th>
+                <th>その他</th>
               </tr>
             </thead>
             <tbody>
             <% @users.each do |user| %>
               <tr>
-                <td><%= attachment_image_tag user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %></td>
+                <td><%= link_to (attachment_image_tag user, :profile_image, :fill, 75, 75, fallback: "no_image.jpg",size: '75x75'),user_path(user) %></td>
                 <td><%= user.name %></td>
+                <td>
+                  <div>フォロー数: <%= user.followings.count %></div>
+                  <div>フォロワー数: <%= user.followers.count %></div>
+                </td>
               </tr>
             <% end %>
             </tbody>
           </table>
         <% else %>
-        <div>投稿　<%= @word %>の検索結果</div>
-          <table class="table">
+        <h2>投稿　"<%= @word %>"の検索結果</h2>
+          <table class="table table-hover table-inverse">
             <thead>
               <tr>
-                <th></th>
-                <th>Title</th>
-                <th>Opinion</th>
+                <th>プロフィール画像</th>
+                <th>ニックネーム</th>
+                <th>タイトル</th>
+                <th>本文</th>
+                <th>その他</th>
               </tr>
             </thead>
             <tbody>
             <% @posts.each do |post| %>
               <tr>
-                <td></td>
+                <td><%= link_to (attachment_image_tag post.user, :profile_image, :fill, 75, 75, fallback: "no_image.jpg",size: '75x75'),user_path(post.user) %></td>
+                <td><%= post.user.name %></td>
                 <td><%= link_to post.title,post_path(post) %></td>
                 <td><%= post.title_comment %></td>
+                <td>
+                  <div class="favorite-btn_<%= post.id %>">いいね件数：<%= render 'favorites/favorite-btn', post: post %></div>
+                  <div>コメント件数：<%= post.post_comments.count %></div>
+                </td>
               </tr>
             <% end %>
             </tbody>

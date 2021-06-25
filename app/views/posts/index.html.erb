@@ -1,14 +1,16 @@
   <div class="container mt-5">
-    <%= render 'users/search' %>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-2 text-center">
+        <%= render 'users/search' %>
+      </div>
+      <div class="col-md-10">
         <% if @post.errors.any? %>
           <%= @post.errors.count %>errors
           <% @post.errors.full_messages.each do |message| %>
           <%= message %>
           <% end %>
         <% end %>
-        <h2>投稿一覧</h2>
+        <h2 class="ml-4">投稿一覧</h2>
         <table class="table table-hover table-inverse">
           <thead>
             <tr>
@@ -21,17 +23,18 @@
           <tbody>
           <% @posts.each do |post| %>
             <tr>
-              <td><%= link_to (attachment_image_tag post.user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg"),user_path(post.user) %></td>
+              <td><%= link_to (attachment_image_tag post.user, :profile_image, :fill, 75, 75, fallback: "no_image.jpg",size: '75x75'),user_path(post.user) %></td>
               <td><%= link_to post.title, post_path(post) %></td>
               <td><%= post.title_comment %></td>
               <td>
-              <p class="favorite-btn_<%= post.id %>">いいね件数：<%= render 'favorites/favorite-btn', post: post %></p>
-              <p>コメント件数：<%= post.post_comments.count %></p>
+                <p class="favorite-btn_<%= post.id %>">いいね件数：<%= render 'favorites/favorite-btn', post: post %></p>
+                <p>コメント件数：<%= post.post_comments.count %></p>
               </td>
             </tr>
           <% end %>
           </tbody>
         </table>
+        <%= paginate @posts %>
       </div>
     </div>
   </div>

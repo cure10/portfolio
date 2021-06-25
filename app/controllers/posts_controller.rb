@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.all
+    @posts = Post.page(params[:page]).per(15)
     @post = Post.new
     @user = current_user
   end
@@ -14,16 +14,17 @@ class PostsController < ApplicationController
     @post.user_id = current_user.id
     if @post.save
       flash[:notice] = "successfully"
-      redirect_to post_path(@post)
+      redirect_to posts_path
     else
       @user = current_user
+      @posts = Post.page(params[:page]).per(15)
       render :index
     end
   end
 
   def show
     @post = Post.find(params[:id])
-    @user_profile = @post.user
+    @post_index = @post.post_comments.page(params[:page]).per(5)
     @user = @post.user
     @post_comment = PostComment.new
   end
