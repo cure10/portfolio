@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_14_153500) do
+ActiveRecord::Schema.define(version: 2021_06_26_092650) do
 
   create_table "contacts", force: :cascade do |t|
     t.string "name", null: false
@@ -68,7 +68,6 @@ ActiveRecord::Schema.define(version: 2021_06_14_153500) do
     t.text "title_comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "rate", default: 0.0, null: false
   end
 
   create_table "relationships", force: :cascade do |t|

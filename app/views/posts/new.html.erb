@@ -9,20 +9,8 @@
       <p class="textarea"><%= f.text_area :title_comment, class:"text-area" %></p>
       <p><%= f.label :投稿の写真 %> :</p>
       <p><%= f.attachment_field :title_image %></p>
-      <div id="rating-form">
-        <p><label>自己評価：</label></p>
-        <%# scoreNameの値をhidden_fieldでカラムに送っている %>
-        <p><%= f.hidden_field :rate, :value => 'score' %></p>
-      </div>
       <%= f.submit '投稿作成', class: "btn btn-primary mt-5" %>
     <% end %>
     </div>
   </div>
 </div>
-<script>
-  $('#rating-form').raty({
-      starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
-      scoreName: 'post[rate]'
-  });
-</script>
