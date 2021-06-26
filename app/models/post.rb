@@ -58,8 +58,4 @@ end
         notification.save if notification.valid?
     end
 
-
-
-
-
 end

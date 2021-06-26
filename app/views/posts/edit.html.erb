@@ -29,17 +29,6 @@
             <p class="col-md-3"><%= f.attachment_field :title_image %></p>
             <span>※既に登録済みでも選択されていませんと表示されます。</span>
           </div>
-          <div class="row rating-form mt-2">
-            <p class="col-md-3">自己評価：</p>
-            <p class="ml-3"><%= f.hidden_field :rate, :value => 'score' %></p>
-          </div>
-          <script>
-            $('.rating-form').raty({
-              starOn: "<%= asset_path('star-on.png') %>",
-              starOff: "<%= asset_path('star-off.png') %>",
-              scoreName: 'post[rate]'
-            });
-          </script>
           <div class="row mt-4 text-center">
             <p class="col-md-6"><%= f.submit '編集する' %></p>
           </div>
