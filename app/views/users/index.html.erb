@@ -8,8 +8,8 @@
           <h1 class="mt-4">ユーザー一覧</h1>
           <thead>
             <tr>
-              <th>image</th>
-              <th>name</th>
+              <th>プロフィール</th>
+              <th>ニックネーム</th>
               <th colspan="3"></th>
             </tr>
           </thead>
@@ -33,7 +33,7 @@
             <% else %>
               <td></td>
             <% end %>
-            <td><%= link_to 'Show',user_path(user.id) %></td>
+            <td><%= link_to '詳細',user_path(user.id) %></td>
             </tr>
             <% end %>
           </tbody>
