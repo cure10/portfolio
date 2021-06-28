@@ -3,9 +3,9 @@ class EventsController < ApplicationController
     start_date = params.fetch(:start_time, Date.today).to_date
     #ひと月分だけの表示、この後の為に残しておきます。
     #@events = Event.where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
-    @events = Event.all
-    @event = Event.new
     @user = current_user
+    @events = Event.where(user_id: @user)
+    @event = Event.new
   end
   def new
     @event = Event.new
