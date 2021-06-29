@@ -7,10 +7,11 @@
           <p><%= f.text_field :title %></p>
           <p><strong  class="form-tag">作業開始時間：</strong></p>
           <p><%= f.datetime_select :start_time %></p>
-          <p><%= link_to 'この栽培予定を消去する',user_event_path(@event.id), method: :delete, data: { confirm: '本当に消してしまってよろしいですか?' } %></p>
-          <p><%= link_to '前の画面に戻る',user_events_path %></p>
+          <p><%= link_to 'この栽培予定を消去する',user_event_path(@event.id), method: :delete, data: { confirm: '本当に消してしまってよろしいですか?' }, class: "mybutton btn btn-danger" %></p>
+          <p><%= link_to '前の画面に戻る', user_events_path, class: "mybutton btn btn-secondary" %></p>
         </div>
         <div class="col-md-8">
+          <div class="bg-primary mb-3"><%= notice %></div>
           <p><strong>内容：</strong></p>
           <p><%= f.text_area :body,class: "text-area" %></p>
         </div>

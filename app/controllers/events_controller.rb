@@ -15,10 +15,11 @@ class EventsController < ApplicationController
     if Event.create!(event_parameter)
       redirect_to user_events_path, notice: "投稿に成功しました"
     else
+      flash[:notice] = "編集に成功しました!"
       start_date = params.fetch(:start_time, Date.today).to_date
-      @events = Event.where(start_time: start_date.beginning_of_month.beginning_of_week..start_date.end_of_month.end_of_week)
-      @event = Event.new
       @user = current_user
+      @events = Event.where(user_id: @user)
+      @event = Event.new
       render :index
     end
   end
@@ -35,7 +36,7 @@ class EventsController < ApplicationController
     if @event.update(event_parameter)
       redirect_to user_events_path, notice: "栽培予定を編集しました"
     else
-      render :edit
+      render :edit, notice: "栽培予定の編集に失敗しました"
     end
   end
 
