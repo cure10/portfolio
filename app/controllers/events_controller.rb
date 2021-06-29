@@ -13,9 +13,8 @@ class EventsController < ApplicationController
   def create
     @event = Event.new
     if Event.create!(event_parameter)
-      redirect_to user_events_path, notice: "投稿に成功しました"
+      redirect_to user_events_path
     else
-      flash[:notice] = "編集に成功しました!"
       start_date = params.fetch(:start_time, Date.today).to_date
       @user = current_user
       @events = Event.where(user_id: @user)
@@ -26,7 +25,7 @@ class EventsController < ApplicationController
   def destroy
     @event = Event.find(params[:id])
     @event.destroy
-    redirect_to user_events_path, notice: "栽培予定を削除しました"
+    redirect_to user_events_path
   end
   def edit
     @event = Event.find(params[:id])

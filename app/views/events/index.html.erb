@@ -26,7 +26,6 @@
     <br>
     <br>
     <div class="col-md-8">
-      <div class="bg-primary mb-3"><%= notice %></div>
       <%= month_calendar events: @events do |date, events| %>
         <%= date.day %>
         <% events.each do |event| %>
