@@ -11,14 +11,15 @@ class EventsController < ApplicationController
     @event = Event.new
   end
   def create
-    @event = Event.new
-    if Event.create!(event_parameter)
-      redirect_to user_events_path
+    @event = Event.new(event_params)
+    if @event.save
+      redirect_to user_events_path, notice: "栽培予定を作成しました！"
     else
       start_date = params.fetch(:start_time, Date.today).to_date
       @user = current_user
       @events = Event.where(user_id: @user)
       @event = Event.new
+      flash.now[:alert] = "栽培予定を作成出来ませんでした！"
       render :index
     end
   end
@@ -35,12 +36,13 @@ class EventsController < ApplicationController
     if @event.update(event_parameter)
       redirect_to user_events_path, notice: "栽培予定を編集しました"
     else
-      render :edit, notice: "栽培予定の編集に失敗しました"
+      flash.now[:alert] = "栽培予定の編集に失敗しました"
+      render :edit
     end
   end
 
   private
-  def event_parameter
+  def event_params
     params.require(:event).permit(:title, :body, :start_time, :user_id)
   end
 end

@@ -11,11 +11,11 @@
           <p><%= link_to '前の画面に戻る', user_events_path, class: "mybutton btn btn-secondary" %></p>
         </div>
         <div class="col-md-8">
-          <div class="bg-primary mb-3"><%= notice %></div>
+          <div class="text-danger mb-3"><%= alert %></div>
           <p><strong>内容：</strong></p>
           <p><%= f.text_area :body,class: "text-area" %></p>
+          <p><%= f.submit "編集", class: "btn btn-primary" %></p>
         </div>
-        <p><%= f.submit "編集を実行する" %></p>
       </div>
       <% end %>
   </div>

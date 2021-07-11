@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :ensure_correct_user, only: [:update, :edit]
   def index
     @users = User.page(params[:page]).per(15)
     @user = current_user
@@ -21,10 +22,10 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      flash[:notice] = "編集に成功しました!"
-      redirect_to user_path(@user)
+      redirect_to user_path(@user), notice: '編集に成功しました'
     else
-      render :edit, notice: "編集に失敗しました"
+      flash.now[:alert] = "編集に失敗しました!"
+      render :edit
     end
   end
 
@@ -36,7 +37,8 @@ class UsersController < ApplicationController
 
   def ensure_correct_user
     unless params[:id].to_i == current_user.id
-    redirect_to user_path(current_user)
+      redirect_to user_path(current_user), alert: '権限がありません!'
     end
   end
 end
+

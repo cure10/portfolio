@@ -13,12 +13,10 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
     if @post.save
-      flash[:notice] = "successfully"
-      redirect_to posts_path
+      redirect_to posts_path, notice: '投稿に成功しました！'
     else
-      @user = current_user
-      @posts = Post.page(params[:page]).per(15)
-      render :index
+      flash.now[:alert] = "投稿に失敗しました!必ず入力と選択をして下さい！"
+      render :new
     end
   end
 
@@ -31,20 +29,14 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
-    @user = @post.user
-    if  @user == current_user
-      render "edit"
-    else
-      redirect_to posts_path
-    end
   end
 
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      flash[:notice] = "successfully"
-      redirect_to post_path(@post.id)
+      redirect_to post_path(@post.id), notice: '投稿に成功しました！'
     else
+      flash[:alert] = "編集に失敗しました！"
       render :edit
     end
   end
@@ -52,11 +44,11 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to posts_path
+    redirect_to posts_path, notice: '投稿の削除に成功しました！'
   end
 
   private
   def post_params
-    params.require(:post).permit(:title, :title_comment, :title_image, :rate)
+    params.require(:post).permit(:title, :title_comment, :title_image)
   end
 end

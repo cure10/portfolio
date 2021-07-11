@@ -4,13 +4,16 @@
         <%= render 'users/search' %>
       </div>
       <div class="col-md-10">
-        <% if @post.errors.any? %>
-          <%= @post.errors.count %>errors
-          <% @post.errors.full_messages.each do |message| %>
-          <%= message %>
+        <h3 class="text-danger">
+          <% if @post.errors.any? %>
+            <%= @post.errors.count %>errors
+            <% @post.errors.full_messages.each do |message| %>
+            <%= message %>
+            <% end %>
           <% end %>
-        <% end %>
-        <h2 class="ml-4">投稿一覧</h2>
+        </h3>
+        <h3 class="text-success"><%= notice %></h3>
+        <h3 class="ml-4">投稿一覧</h3>
         <table class="table table-hover table-inverse">
           <thead>
             <tr>

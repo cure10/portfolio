@@ -2,11 +2,12 @@
   <h2>投稿詳細</h2>
   <div class="row">
     <div class="col-md-4 mt-3">
+      <h4 class="text-danger mb-3"><%= alert %></h4>
       <h5>投稿へのコメント</h5>
       <div>
         <%= form_with model: [@post, @post_comment], local:true  do |f| %>
         <%= f.text_area :comment %>
-        <br><%= f.submit "送信する" %></br>
+        <br><%= f.submit "送信する", class: "btn btn-primary" %></br>
         <% end %>
       </div>
       <h5 class="mt-3">コメント一覧</h5>
@@ -22,7 +23,7 @@
                 <td><%= post_comment.comment %></td>
                 <td>
                 <% if current_user.id == post_comment.user_id %>
-                  <%= button_to "削除する", post_post_comment_path(post_comment.post, post_comment),class: "btn btn-danger",method: :delete %>
+                  <%= link_to "削除する", post_post_comment_path(post_comment.post, post_comment), method: :delete, "data-confirm" => "本当に削除しますか？", class: "mybutton btn btn-danger" %>
                 <% end %>
                 </td>
               </tr>
@@ -36,17 +37,22 @@
       <p><%= link_to (attachment_image_tag @post.user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg"),user_path(@user) %></p>
       <p>ユーザー名：<%= link_to @post.user.name,user_path(@user) %></p>
       <% if current_user.id == @post.user_id %>
-        <p><%= button_to "編集をする", {controller: 'posts', action: 'edit'}, {method: :get, class: "mybutton btn btn-info"} %></p>
-        <p><%= button_to "投稿を削除する", {controller: 'posts', action: 'destroy'}, {method: :delete,  "data-confirm" => "本当に削除しますか？",class: "mybutton btn btn-danger"} %></p>
+        <p><%= link_to "編集をする", {controller: 'posts', action: 'edit'}, {method: :get, class: "mybutton btn btn-info"} %></p>
+        <p><%= link_to "投稿を削除する", {controller: 'posts', action: 'destroy'}, {method: :delete, "data-confirm" => "本当に削除しますか？",class: "mybutton btn btn-danger"} %></p>
       <% end %>
     </div>
     <div class="col-md-6 text-center">
+      <h3 class="text-success"><%= notice %></h3>
+      <div class="card">
         <p><%= link_to @post.title,post_path(@post) %></p>
-        <p><%= attachment_image_tag @post, :title_image, :fill, 500, 500, fallback: "no_image.jpg" %></p>
+      </div>
+      <p><%= attachment_image_tag @post, :title_image, :fill, 500, 500, fallback: "no_image.jpg" %></p>
+      <div class="card">
         <div>コメント件数：<%= @post.post_comments.count %></div>
         <div class="favorite-btn_<%= @post.id %>">いいね数：<%= render 'favorites/favorite-btn', post: @post %></div>
         <p class="mt-3">本文：</p>
         <h7><p><%= @post.title_comment %></p></h7>
+      </div>
     </div>
   </div>
 </div>

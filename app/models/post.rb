@@ -58,4 +58,8 @@ end
         notification.save if notification.valid?
     end
 
+validates :title, presence: true
+validates :title_image, presence: true
+validates :title_comment, presence: true
+
 end

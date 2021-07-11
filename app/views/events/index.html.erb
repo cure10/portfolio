@@ -26,6 +26,8 @@
     <br>
     <br>
     <div class="col-md-8">
+      <h3 class="text-success"><%= notice %></h3>
+      <h3 class="text-danger"><%= alert %></h3>
       <%= month_calendar events: @events do |date, events| %>
         <%= date.day %>
         <% events.each do |event| %>

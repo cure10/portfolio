@@ -23,11 +23,11 @@
             <% if user != current_user %>
               <% if current_user.following?(user) %>
               <td>
-              <%= link_to "フォロー外す", user_relationship_path(user.id, :id), method: :delete %>
+              <%= link_to "フォロー外す", user_relationship_path(user.id, :id), method: :delete, class: "mybutton btn btn-success" %>
               </td>
               <% else %>
               <td>
-              <%= link_to "フォローする", user_relationships_path(user.id, :id), method: :post %>
+              <%= link_to "フォローする", user_relationships_path(user.id, :id), method: :post, class: "mybutton btn btn-primary" %>
               </td>
               <% end %>
             <% else %>
