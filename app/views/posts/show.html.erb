@@ -37,8 +37,8 @@
       <p><%= link_to (attachment_image_tag @post.user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg"),user_path(@user) %></p>
       <p>ユーザー名：<%= link_to @post.user.name,user_path(@user) %></p>
       <% if current_user.id == @post.user_id %>
-        <p><%= link_to "編集をする", {controller: 'posts', action: 'edit'}, {method: :get, class: "mybutton btn btn-info"} %></p>
-        <p><%= link_to "投稿を削除する", {controller: 'posts', action: 'destroy'}, {method: :delete, "data-confirm" => "本当に削除しますか？",class: "mybutton btn btn-danger"} %></p>
+        <p><%= link_to "編集をする",edit_post_path(@post), {method: :get, class: "mybutton btn btn-info"} %></p>
+        <p><%= link_to "投稿を削除する",post_path(@post), {method: :delete, "data-confirm" => "本当に削除しますか？",class: "mybutton btn btn-danger"} %></p>
       <% end %>
     </div>
     <div class="col-md-6 text-center">
