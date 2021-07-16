@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
   it "名前とメールアドレスとパスワードがあれば登録できる" do
     expect(FactoryBot.create(:user)).to be_valid
   end
@@ -15,7 +14,7 @@ RSpec.describe User, type: :model do
   end
 
   it "メールアドレスが重複していたら登録できない" do
-    user1 = FactoryBot.create(:user,name: "taro", email: "taro@gmail.com")
+    user1 = FactoryBot.create(:user, name: "taro", email: "taro@gmail.com")
     expect(FactoryBot.build(:user, name: "ziro", email: user1.email)).to_not be_valid
   end
 
@@ -24,8 +23,6 @@ RSpec.describe User, type: :model do
   end
 
   it "password_confirmationとpasswordが異なる場合保存できない" do
-    expect(FactoryBot.build(:user,password:"password",password_confirmation: "passward")).to_not be_valid
+    expect(FactoryBot.build(:user, password: "password", password_confirmation: "passward")).to_not be_valid
   end
-
-
 end

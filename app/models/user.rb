@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -17,34 +15,34 @@ class User < ApplicationRecord
   attachment :profile_image
 
   def follow(user_id)
-  relationships.create(followed_id: user_id)
+    relationships.create(followed_id: user_id)
   end
 
   def unfollow(user_id)
-  relationships.find_by(followed_id: user_id).destroy
+    relationships.find_by(followed_id: user_id).destroy
   end
 
   def following?(user)
-  followings.include?(user)
+    followings.include?(user)
   end
 
   def self.looks(search, word)
     if search == "perfect_match"
-    @user = User.where("name LIKE?", "#{word}")
+      @user = User.where("name LIKE?", "#{word}")
     elsif search == "forward_match"
-    @user = User.where("name LIKE?","#{word}%")
+      @user = User.where("name LIKE?", "#{word}%")
     elsif search == "backward_match"
-    @user = User.where("name LIKE?","%#{word}")
+      @user = User.where("name LIKE?", "%#{word}")
     elsif search == "partial_match"
-    @user = User.where("name LIKE?","%#{word}%")
+      @user = User.where("name LIKE?", "%#{word}%")
     else
-    @user = User.all
+      @user = User.all
     end
   end
 
-  #フォロー時の通知
+  # フォロー時の通知
   def create_notification_follow!(current_user)
-    temp = Notification.where(["visiter_id = ? and visited_id = ? and action = ? ",current_user.id, id, 'follow'])
+    temp = Notification.where(["visiter_id = ? and visited_id = ? and action = ? ", current_user.id, id, 'follow'])
     if temp.blank?
       notification = current_user.active_notifications.new(
         visited_id: id,
